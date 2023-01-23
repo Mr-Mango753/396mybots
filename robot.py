@@ -36,7 +36,7 @@ class ROBOT:
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
-                # self.motors[jointName].Set_Value(self.robotId, desiredAngle)
+                self.motors[jointName].Set_Value(self.robotId, desiredAngle)
                 # print(f'Motor Neuron: {neuronName}, Joint Name: {jointName}, Value: {desiredAngle}')
         # for motor in self.motors:
         #     self.motors[motor].Set_Value(i, self.robotId)
