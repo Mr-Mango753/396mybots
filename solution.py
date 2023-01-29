@@ -53,12 +53,12 @@ class SOLUTION:
 
 
     def Wait_For_Simulation_To_End(self):
-        while not os.path.exists(f"fitness{self.myID}.txt"):
+        while not os.path.exists(f"fitness{str(self.myID)}.txt"):
             time.sleep(0.01)
         f = open(f"fitness{self.myID}.txt", "r")
         self.fitness = float(f.read())
         f.close()
-        os.system(f"del fitness{self.myID}.txt")
+        os.system(f"del fitness{str(self.myID)}.txt")
         
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
