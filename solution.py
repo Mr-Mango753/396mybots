@@ -44,9 +44,9 @@ class SOLUTION:
     #     os.system("start /B " + "python simulation.py " + directOrGUI + " " + str(self.myID))
         
     def Start_Simulation(self, directOrGUI):
-        # if self.myID == 0:
-        self.Create_World()
-        self.Generate_Body()
+        if self.myID == 0:
+            self.Create_World()
+            self.Generate_Body()
         self.Generate_Brain()
         os.system("start /B " + "python simulation.py " + directOrGUI + " " + str(self.myID))
         # os.system("python simulation.py " + directOrGUI + " " + str(self.myID) + " &")
@@ -67,11 +67,11 @@ class SOLUTION:
 
     def Generate_Body(self):
         pyrosim.Start_URDF("body.urdf")
-        pyrosim.Send_Cube(name="BackLeg", pos=[.5,0,-.5] , size=[length, width, height])
-        pyrosim.Send_Joint(name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [2,0,1])
+        pyrosim.Send_Cube(name="BackLeg", pos=[-.5,0,-.5] , size=[length, width, height])
+        pyrosim.Send_Joint(name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position = [1,0,1])
         pyrosim.Send_Cube(name="Torso", pos=[1.5,0,1.5] , size=[length, width, height])
-        pyrosim.Send_Joint(name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [1,0,1])
-        pyrosim.Send_Cube(name="FrontLeg", pos=[-.5,0,-.5] , size=[length, width, height])
+        pyrosim.Send_Joint(name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position = [2,0,1])
+        pyrosim.Send_Cube(name="FrontLeg", pos=[.5,0,-.5] , size=[length, width, height])
         pyrosim.End()
 
     def Generate_Brain(self):

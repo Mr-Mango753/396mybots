@@ -37,18 +37,18 @@ class PARALLELHILLCLIMBER:
         self.Print()
         self.Select()
 
-    def Evaluate(self, solutions):
-        for i in solutions:
-            solutions[i].Start_Simulation("DIRECT")
-        for i in solutions:
-            solutions[i].Wait_For_Simulation_To_End()
+    def Evaluate(self, results):
+        for i in results:
+            results[i].Start_Simulation("DIRECT")
+        for i in results:
+            results[i].Wait_For_Simulation_To_End()
 
     def Show_Best(self):
-        best = self.parents[0].fitness
+        mostFit = self.parents[0].fitness
         index = 0
         for i in self.parents:
-            if self.parents[i].fitness < best:
-                best = self.parents[i].fitness
+            if self.parents[i].fitness < mostFit:
+                mostFit = self.parents[i].fitness
                 index = i
         self.parents[index].Start_Simulation("GUI")
 

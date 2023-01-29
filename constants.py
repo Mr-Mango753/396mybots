@@ -20,4 +20,4 @@ targetAngles = numpy.linspace(-numpy.pi, numpy.pi, vectorSize)
 
 numberOfGenerations = 10
 
-populationSize = 10
+populationSize = 9

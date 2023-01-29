@@ -27,7 +27,7 @@ class ROBOT:
     def Sense(self, i):
         for sensor in self.sensors:
             self.sensors[sensor].Get_Value(i)
-            self.sensors[sensor].Save_Values(i)
+            # self.sensors[sensor].Save_Values(i)
 
     
     def Prepare_To_Act(self):
@@ -56,4 +56,5 @@ class ROBOT:
         f = open(f"tmp{self.brainID}.txt", "w")
         f.write(str(xCoordinateofLinkZero))
         f.close()
-        os.system(f"rename tmp{self.brainID}.txt fitness{self.brainID}.txt")
+        # os.system(f"rename tmp{self.brainID}.txt fitness{self.brainID}.txt")
+        os.rename("tmp"+str(self.brainID)+".txt" , "fitness"+str(self.brainID)+".txt")
