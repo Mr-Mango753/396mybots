@@ -1,9 +1,10 @@
 import os
 
-from hillclimber import HILLCLIMBER
+from parallelHillClimber import PARALLELHILLCLIMBER
 
-hc = HILLCLIMBER()
-hc.Evolve()
+phc = PARALLELHILLCLIMBER()
+phc.Evolve()
+phc.Show_Best()
 
 # for i in range(5):
 #     os.system("python3 generate.py")

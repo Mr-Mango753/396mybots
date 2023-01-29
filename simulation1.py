@@ -6,30 +6,33 @@ import pybullet as p
 import pybullet_data 
 import pyrosim.pyrosim as pyrosim
 import constants as c
+import sys
 
 class SIMULATION:
 
-    def __init__(self, direct):
-        if direct == "DIRECT":
+    def __init__(self, directOrGUI, solutionID):
+        # solutionID = sys.argv[2]
+        if directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
         else:
             self.physicsClient = p.connect(p.GUI)
         self.physicsClient
         # self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(solutionID)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.8)
         self.planeId = p.loadURDF("plane.urdf")
         # p.loadSDF("world.sdf")
-        self.directOrGUI = direct
+        self.directOrGUI = directOrGUI
 
     def Run(self):
-        for i in range(1000):
+        for i in range(500):
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
-            # time.sleep(1/120)
+            if self.directOrGUI == 'GUI':
+                time.sleep(1/60)
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()

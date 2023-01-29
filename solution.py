@@ -19,23 +19,46 @@ z = .5
 
 class SOLUTION:
 
-    def __init__(self) -> None:
+    def __init__(self, ID) -> None:
         self.weights = numpy.array([[numpy.random.rand(), numpy.random.rand()],
                                     [numpy.random.rand(), numpy.random.rand()],
                                     [numpy.random.rand(), numpy.random.rand()]])
         self.weights = self.weights * 2 - 1
         self.fitness = 0
         self.hello = "hello"
+        self.myID = ID
 
-    def Evaluate(self, method):
+    def Set_ID(self):
+        self.myID += 1
+
+    # def Evaluate(self, directOrGUI):
+    #     self.Create_World()
+    #     self.Generate_Body()
+    #     self.Generate_Brain()
+    #     # os.system("python simulation.py " + directOrGUI + " " + str(self.myID) + " &")
+    #     while not os.path.exists("fitness"+str(self.myID)+".txt"):
+    #         time.sleep(.01)
+    #     f = open("fitness"+str(self.myID)+".txt", "r")
+    #     self.fitness = float(f.read())
+    #     f.close()
+    #     os.system("start /B " + "python simulation.py " + directOrGUI + " " + str(self.myID))
+        
+    def Start_Simulation(self, directOrGUI):
+        # if self.myID == 0:
         self.Create_World()
         self.Generate_Body()
         self.Generate_Brain()
-        f = open("fitness.txt", "r")
+        os.system("start /B " + "python simulation.py " + directOrGUI + " " + str(self.myID))
+        # os.system("python simulation.py " + directOrGUI + " " + str(self.myID) + " &")
+
+
+    def Wait_For_Simulation_To_End(self):
+        while not os.path.exists(f"fitness{self.myID}.txt"):
+            time.sleep(0.01)
+        f = open(f"fitness{self.myID}.txt", "r")
         self.fitness = float(f.read())
         f.close()
-        os.system("python simulation.py " + method)
-
+        os.system(f"del fitness{self.myID}.txt")
         
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
@@ -52,7 +75,7 @@ class SOLUTION:
         pyrosim.End()
 
     def Generate_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
         pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
         pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")    
@@ -68,6 +91,9 @@ class SOLUTION:
             for currentColumn in [0,1]:
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=self.weights[currentRow][currentColumn])
         pyrosim.End()
+
+    def Set_ID(self, ID):
+        self.myID = ID
 
     def Mutate(self):
         randRow = random.randint(0,2)
