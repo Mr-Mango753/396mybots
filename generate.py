@@ -11,7 +11,7 @@ z = .5
 
 # def Create_World():
 #     pyrosim.Start_SDF("world.sdf")
-#     pyrosim.Send_Cube(name="Leg", pos=[1,0,1.5] , size=[length, width, height])
+#     pyrosim.Send_Cube(name="Box", pos=[0,0.5,0.5] , size=[length, width, height])
 #     pyrosim.End()
     
 # def Create_Robot():

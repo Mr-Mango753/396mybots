@@ -5,6 +5,7 @@ import pyrosim.pyrosim as pyrosim
 import pybullet as p
 import constants as c
 import numpy
+import os
 
 class ROBOT:
 
@@ -45,3 +46,12 @@ class ROBOT:
     def Think(self):
         self.nn.Update()
         self.nn.Print()
+
+    def Get_Fitness(self):
+        stateofLinkZero = p.getLinkState(self.robotId,0)
+        positionofLinkZero = stateofLinkZero[0]
+        xCoordinateofLinkZero = positionofLinkZero[0]
+        f = open("fitness.txt", "w")
+        f.write(str(xCoordinateofLinkZero))
+        f.close()
+        exit()

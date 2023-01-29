@@ -5,10 +5,12 @@ import pyrosim.pyrosim as pyrosim
 import numpy
 import random
 from simulation1 import SIMULATION
+import sys
 
-
-simulation = SIMULATION()
+directOrGUI = sys.argv[1]
+simulation = SIMULATION(directOrGUI)
 simulation.Run()
+simulation.Get_Fitness()
 
 
 # physicsClient = p.connect(p.GUI)

@@ -9,22 +9,30 @@ import constants as c
 
 class SIMULATION:
 
-    def __init__(self):
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self, direct):
+        if direct == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
+        self.physicsClient
         # self.world = WORLD()
         self.robot = ROBOT()
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.8)
         self.planeId = p.loadURDF("plane.urdf")
         # p.loadSDF("world.sdf")
+        self.directOrGUI = direct
 
     def Run(self):
-        for i in range(c.vectorSize):
+        for i in range(1000):
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
-            time.sleep(1/60)
+            # time.sleep(1/120)
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
 
     def __del__(self):
         p.disconnect()

@@ -17,3 +17,5 @@ vectorSize = 1000
 maxForce = 500
 
 targetAngles = numpy.linspace(-numpy.pi, numpy.pi, vectorSize)
+
+numberOfGenerations = 10
