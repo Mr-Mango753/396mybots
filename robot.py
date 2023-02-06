@@ -2,6 +2,7 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 from sensor import SENSOR
 from motor import MOTOR
 import pyrosim.pyrosim as pyrosim
+import math
 import pybullet as p
 import constants as c
 import numpy
@@ -18,6 +19,8 @@ class ROBOT:
         self.Prepare_To_Act()
         os.system(f"del brain{brainID}.nndf")
         self.brainID = brainID
+        self.fitness = 0
+        self.current = 0
 
     def Prepare_To_Sense(self):
         self.sensors = {}
@@ -26,7 +29,9 @@ class ROBOT:
 
     def Sense(self, i):
         for sensor in self.sensors:
+            # print(self.sensors[sensor].Get_Value(i))
             self.sensors[sensor].Get_Value(i)
+            # self.sensors[sensor] = math.sin(i)
             # self.sensors[sensor].Save_Values(i)
 
     
@@ -49,12 +54,27 @@ class ROBOT:
         self.nn.Update()
         # self.nn.Print()
 
+
+    # def Get_Current_Fitness(self):
+    #     # print(pyrosim.Get_Touch_Sensor_Value_For_Link('Torso'))
+    #     for sensor in self.sensors:
+    #         if not sensor == 'Torso' and pyrosim.Get_Touch_Sensor_Value_For_Link(sensor) == 1:
+    #             self.current = 0
+    #             return
+
+    #     self.current += 1
+    #     if self.current > self.fitness:
+    #         self.fitness = self.current
+
     def Get_Fitness(self):
-        stateofLinkZero = p.getLinkState(self.robotId,0)
-        positionofLinkZero = stateofLinkZero[0]
-        xCoordinateofLinkZero = positionofLinkZero[0]
+        # stateofLinkZero = p.getLinkState(self.robotId,0)
+        # positionofLinkZero = stateofLinkZero[0]
+        # xCoordinateofLinkZero = positionofLinkZero[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        basePosition = basePositionAndOrientation[0]
+        xPosition = basePosition[0]
         f = open(f"tmp{self.brainID}.txt", "w")
-        f.write(str(xCoordinateofLinkZero))
+        f.write(str(xPosition))
         f.close()
         # os.system(f"rename tmp{self.brainID}.txt fitness{self.brainID}.txt")
         os.rename("tmp"+str(self.brainID)+".txt" , "fitness"+str(self.brainID)+".txt")

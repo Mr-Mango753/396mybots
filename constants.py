@@ -18,11 +18,11 @@ maxForce = 500
 
 targetAngles = numpy.linspace(-numpy.pi, numpy.pi, vectorSize)
 
-numberOfGenerations = 20
+numberOfGenerations = 10
 
-populationSize = 20
+populationSize = 10
 
-numSensorNeurons = 9
-numMotorNeurons = 4
+numSensorNeurons = 6
+numMotorNeurons = 5
 
-motorJointRange = 0.2
+motorJointRange = .3

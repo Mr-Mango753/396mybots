@@ -17,12 +17,12 @@ class SIMULATION:
         else:
             self.physicsClient = p.connect(p.GUI)
         self.physicsClient
-        # self.world = WORLD()
+        self.world = WORLD()
         self.robot = ROBOT(solutionID)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.8)
         self.planeId = p.loadURDF("plane.urdf")
-        # p.loadSDF("world.sdf")
+        p.loadSDF("world.sdf")
         self.directOrGUI = directOrGUI
 
     def Run(self):
@@ -31,6 +31,7 @@ class SIMULATION:
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
+            # self.robot.Get_Current_Fitness()
             if self.directOrGUI == 'GUI':
                 time.sleep(1/60)
 
