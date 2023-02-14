@@ -1,1 +1,1 @@
-To run the model, run the search file.
+To see the model, run the search file.
